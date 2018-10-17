@@ -12,7 +12,7 @@ function Segment (width, height, colour) {
 	this.lineWidth = 1;
 }
 
-Segment.prototype.draw = function(context) {
+Segment.prototype.draw = function(context, isShoulders) {
 	var h = this.height
 		d = this.width + h, //top right diagonal
 		cr = h / 2; // corner radius
@@ -48,6 +48,12 @@ Segment.prototype.draw = function(context) {
 	context.closePath();
 	context.stroke();
 	context.restore();
+	if(shoulders) {
+		context.arc(this.width / 2, 0, 2, 0, (Math.PI * 2), true);
+		context.closePath();
+		context.stroke();
+		context.restore();
+	}
 };
 
 Segment.prototype.getPin = function() {

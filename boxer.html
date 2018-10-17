@@ -17,7 +17,7 @@
         <script>
 
 
-            function torso(context, upperBack, lowerBack, cycle) {
+            function spine(context, upperBack, lowerBack, cycle) {
                 var angle0 = (Math.sin(cycle) * 45 + 90) * Math.PI / 180;
                 var angle1 = (Math.sin(cycle) * 45 - 90) * Math.PI / 180;
 
@@ -26,8 +26,6 @@
                 lowerBack.x = upperBack.getPin().x;
                 lowerBack.y = upperBack.getPin().y;
 
-                upperBack.draw(context);
-                lowerBack.draw(context);
             }
 
          
@@ -36,10 +34,12 @@
                 var canvas = document.getElementById('canvas'),
                     context = canvas.getContext('2d'),
                     mouse = utils.captureMouse(canvas),
+                    shoulders = new Segment(100, 20),
                     upperLeft = new Segment(100, 20),
                     upperRight = new Segment(100, 20),
                     leftFore = new Segment(100, 20),
                     rightFore = new Segment(100, 20),
+                    hips = new Segment(100, 20),
                     leftThigh = new Segment(100, 20),
                     rightThigh = new Segment(100, 20),
                     leftCalf = new Segment(100, 20),
@@ -48,10 +48,10 @@
                     lowerBack = new Segment(100, 20),
                     leftFoot = new Segment(100, 20),
                     rightFoot = new Segment(100, 20),
+
                     head = new Ball(),
                     leftGlove = new Ball(),
                     rightGlove = new Ball(),
-
                     cycle =0;
 
                 upperBack.x = canvas.width / 2;
@@ -67,7 +67,15 @@
                   //  cycle += 0.02;
 
 
-                torso(context, upperBack, lowerBack, cycle);
+                spine(context, upperBack, lowerBack, cycle);
+                shoulders(context, upperBack.x, upperBack.y, shoulders, cycle);
+
+
+
+
+                upperBack.draw(context);
+                lowerBack.draw(context);
+                shoulders.draw(context, isShoulders);
 
 
                 }
