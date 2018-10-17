@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+  
+    
+<html>
+    <head>
+        <meta charset="utf=8">
+            <title>Invert colour</title>
+            <link rel="stylesheet" href="css/style.css">
+   </head>
+    <body>
+       <canvas id="canvas" width="640" height="480"/></canvas>
+       <textarea id="log"></textarea>
+        <script src="js/utils.js"></script>
+        <script src="js/ball.js"></script>
+        <script src="js/segment.js"></script>
+        <script src="js/slider.js"></script>
+        <script>
+
+
+            function torso(context, upperBack, lowerBack, cycle) {
+                var angle0 = (Math.sin(cycle) * 45 + 90) * Math.PI / 180;
+                var angle1 = (Math.sin(cycle) * 45 - 90) * Math.PI / 180;
+
+                upperBack.rotation = angle0;
+                lowerBack.rotation = upperBack.rotation + (angle1 * .1);
+                lowerBack.x = upperBack.getPin().x;
+                lowerBack.y = upperBack.getPin().y;
+
+                upperBack.draw(context);
+                lowerBack.draw(context);
+            }
+
+         
+            window.onload = function()
+            {
+                var canvas = document.getElementById('canvas'),
+                    context = canvas.getContext('2d'),
+                    mouse = utils.captureMouse(canvas),
+                    upperLeft = new Segment(100, 20),
+                    upperRight = new Segment(100, 20),
+                    leftFore = new Segment(100, 20),
+                    rightFore = new Segment(100, 20),
+                    leftThigh = new Segment(100, 20),
+                    rightThigh = new Segment(100, 20),
+                    leftCalf = new Segment(100, 20),
+                    rightCalf = new Segment(100, 20),
+                    upperBack = new Segment(100, 20),
+                    lowerBack = new Segment(100, 20),
+                    leftFoot = new Segment(100, 20),
+                    rightFoot = new Segment(100, 20),
+                    head = new Ball(),
+                    leftGlove = new Ball(),
+                    rightGlove = new Ball(),
+
+                    cycle =0;
+
+                upperBack.x = canvas.width / 2;
+                upperBack.y = canvas.height / 4;
+
+                lowerBack.x = upperBack.getPin().x - 10;
+                lowerBack.y = upperBack.getPin().y;
+
+                function drawFrame() {
+                	window.requestAnimationFrame(drawFrame, canvas);
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+
+                  //  cycle += 0.02;
+
+
+                torso(context, upperBack, lowerBack, cycle);
+
+
+                }
+                drawFrame();
+            };
+        </script>
+    </body>
+</html>
