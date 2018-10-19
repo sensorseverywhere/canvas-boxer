@@ -5,14 +5,14 @@ function Segment (width, height, colour) {
 	this.height = height;
 	this.vx = 0;
 	this.vy = 0;
-	this.rotation = 0;
+	this.rotation = width / 2;
 	this.scaleX = 1;
 	this.scaleY = 1;
 	this.colour = (colour === undefined) ? "#ffffff" : utils.parseColour(colour);
 	this.lineWidth = 1;
 }
 
-Segment.prototype.draw = function(context, isShoulders) {
+Segment.prototype.draw = function(context, middlePin) {
 	var h = this.height
 		d = this.width + h, //top right diagonal
 		cr = h / 2; // corner radius
@@ -47,18 +47,26 @@ Segment.prototype.draw = function(context, isShoulders) {
 	context.arc(this.width, 0, 2, 0, (Math.PI * 2), true);
 	context.closePath();
 	context.stroke();
-	context.restore();
-	if(shoulders) {
+ if(middlePin){
+	  context.beginPath();
 		context.arc(this.width / 2, 0, 2, 0, (Math.PI * 2), true);
 		context.closePath();
 		context.stroke();
-		context.restore();
 	}
+	context.restore();
+
 };
 
 Segment.prototype.getPin = function() {
 	return {
 	x: this.x + Math.cos(this.rotation) * this.width,
 	y: this.y + Math.sin(this.rotation) * this.width
+	};
+};
+
+Segment.prototype.getMiddlePin = function() {
+	return {
+	x: this.x + Math.cos(this.rotation) * this.width / 2,
+	y: this.y + Math.sin(this.rotation) * this.width / 2
 	};
 };
