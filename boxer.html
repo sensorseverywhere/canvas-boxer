@@ -14,73 +14,46 @@
         <script src="js/ball.js"></script>
         <script src="js/segment.js"></script>
         <script>
-
+            var canvas,
+                context,
+                mouse,
+                neck,
+                shoulders,
+                upperLeft,
+                upperRight,
+                leftFore,
+                rightFore,
+                hips,
+                leftThigh,
+                rightThigh,
+                leftCalf,
+                rightCalf,
+                upperBack,
+                lowerBack,
+                leftFoot,
+                rightFoot,
+                head,
+                leftGlove,
+                rightGlove,
+                cycle;
 
             function getCycle(cycle) {
-                return angle = (Math.sin(cycle) * 45 + 90) * Math.PI / 180;
+                return angle = (Math.sin(cycle) * 90 + 90) * Math.PI / 180;
             }
 
-            function spine(context, upperBack, lowerBack, cycleValue) {
-                var angle = getCycle(cycleValue);
-                upperBack.rotation = angle * 1.05;
-                lowerBack.rotation = upperBack.rotation + (getCycle(cycleValue) * 3.8);
-                lowerBack.x = upperBack.getPin().x;
-                lowerBack.y = upperBack.getPin().y;
-            }
-
-            function upperBody(context, shoulders, upperBack, neck, head, cycleValue) {
-              shoulders.rotation = getCycle(cycleValue) * -.1;
-              neck.rotation = getCycle(cycleValue) * -.75;
-              shoulders.x = upperBack.x - (shoulders.width / 2);
-              shoulders.y = neck.y = upperBack.y;
-              neck.x = shoulders.x + (shoulders.width / 2);
-              // neck.y = shoulders.y;
-              head.x = neck.x + head.radius / 1.4;
-              head.y = neck.y / 1.7;
-            }
-
-            function leftArm(context, upperLeft, leftFore, shoulders, cycleValue) {
-              upperLeft.rotation = getCycle(cycleValue) * .75;
+            function leftJab() {
+              upperLeft.rotation = getCycle(-.95);
               upperLeft.x = shoulders.getPin().x;
               upperLeft.y = shoulders.getPin().y;
               leftFore.x = upperLeft.getPin().x;
               leftFore.y = upperLeft.getPin().y;
-            }
-
-            function rightArm(context, upperRight, rightFore, shoulders, cycleValue) {
-              upperRight.rotation = getCycle(cycleValue) * 1.05;
-              upperRight.x = shoulders.getPin().x - shoulders.width;
-              upperRight.y = shoulders.getPin().y;
-              rightFore.x = upperRight.getPin().x;
-              rightFore.y = upperRight.getPin().y;
-            }
-
-            function getHips(context, hips, lowerBack, cycleValue) {
-                hips.rotation = getCycle(cycleValue) * -.1;
-                hips.x = lowerBack.getPin().x - (hips.width / 2);
-                hips.y = lowerBack.getPin().y + (hips.height / 2);
-            }
-
-            function rightLeg(context, rightThigh, rightCalf, rightFoot, hips, cycleValue) {
-              rightThigh.rotation = getCycle(cycleValue) * .95;
-              rightCalf.rotation = getCycle(cycleValue) * 1.35;
-              rightThigh.x = hips.getPin().x - hips.width;
-              rightThigh.y = hips.getPin().y;
-              rightCalf.x = rightThigh.getPin().x;
-              rightCalf.y = rightThigh.getPin().y;
-              rightFoot.x = rightCalf.getPin().x;
-              rightFoot.y = rightCalf.getPin().y;
-            }
-
-            function leftLeg(context, leftThigh, leftCalf, leftFoot, hips, cycleValue) {
-              leftThigh.rotation = getCycle(cycleValue) * .55;
-              leftCalf.rotation = getCycle(cycleValue) * 1.10;
-              leftThigh.x = hips.getPin().x;
-              leftThigh.y = hips.getPin().y;
-              leftCalf.x = leftThigh.getPin().x;
-              leftCalf.y = leftThigh.getPin().y;
-              leftFoot.x = leftCalf.getPin().x;
-              leftFoot.y = leftCalf.getPin().y;
+              setTimeout(function() {
+                upperLeft.rotation = getCycle(.05);
+                upperLeft.x = shoulders.getPin().x;
+                upperLeft.y = shoulders.getPin().y;
+                leftFore.x = upperLeft.getPin().x;
+                leftFore.y = upperLeft.getPin().y;
+              },100);
             }
 
             function duck() {
@@ -93,10 +66,6 @@
 
             function moveForward() {
               console.log('moving forward');
-            }
-
-            function leftJab() {
-              console.log('left jab');
             }
 
             function rightJab() {
@@ -120,40 +89,31 @@
             }
 
             function onKeyboardEvent(e) {
-              console.log(e.keyCode);
-              switch(e.keyCode) {
+                switch(e.keyCode) {
                 case 73:
-                  console.log("I ( Up )");
+                  console.log('up - nothing assigned')
                   break;
                 case 75:
-                   console.log("K ( Down )");
                    duck();
                    break;
                 case 59:
-                  console.log("semi colon ( Right s)");
-                  moveBack();
-                  break;
-                case 74:
-                  console.log('J ( Left )')
                   moveForward();
                   break;
+                case 74:
+                  moveBack();
+                  break;
                 case 32:
-                  console.log('space')
                   break;
                 case 65:
-                  console.log('A');
                   leftJab();
                   break;
                 case 70:
-                  console.log('F');
                   rightJab();
                   break;
                 case 69:
-                  console.log('E');
                   leftUpperCut();
                   break;
                 case 68:
-                  console.log('D');
                   rightUpperCut();
                   break;
                 case 83:
@@ -168,30 +128,75 @@
             }
 
 
+            function init(cycleValue) {
+                var angle = getCycle(cycleValue);
+                upperBack.rotation = angle * 1.05;
+                lowerBack.rotation = upperBack.rotation + (getCycle(cycleValue) * 3.8);
+                lowerBack.x = upperBack.getPin().x;
+                lowerBack.y = upperBack.getPin().y;
+                shoulders.rotation = getCycle(cycleValue) * -.1;
+                neck.rotation = getCycle(cycleValue) * -.75;
+                shoulders.x = upperBack.x - (shoulders.width / 2);
+                shoulders.y = neck.y = upperBack.y;
+                neck.x = shoulders.x + (shoulders.width / 2);
+                // neck.y = shoulders.y;
+                head.x = neck.x + head.radius / 1.4;
+                head.y = neck.y / 1.7;
+                upperLeft.rotation = getCycle(cycleValue) * .75;
+                upperLeft.x = shoulders.getPin().x;
+                upperLeft.y = shoulders.getPin().y;
+                leftFore.x = upperLeft.getPin().x;
+                leftFore.y = upperLeft.getPin().y;
+                upperRight.rotation = getCycle(cycleValue) * 1.05;
+                upperRight.x = shoulders.getPin().x - shoulders.width;
+                upperRight.y = shoulders.getPin().y;
+                rightFore.x = upperRight.getPin().x;
+                rightFore.y = upperRight.getPin().y;
+                hips.rotation = getCycle(cycleValue) * -.1;
+                hips.x = lowerBack.getPin().x - (hips.width / 2);
+                hips.y = lowerBack.getPin().y + (hips.height / 2);
+                rightThigh.rotation = getCycle(cycleValue) * .95;
+                rightCalf.rotation = getCycle(cycleValue) * 1.35;
+                rightThigh.x = hips.getPin().x - hips.width;
+                rightThigh.y = hips.getPin().y;
+                rightCalf.x = rightThigh.getPin().x;
+                rightCalf.y = rightThigh.getPin().y;
+                rightFoot.x = rightCalf.getPin().x;
+                rightFoot.y = rightCalf.getPin().y;
+                leftThigh.rotation = getCycle(cycleValue) * .55;
+                leftCalf.rotation = getCycle(cycleValue) * 1.10;
+                leftThigh.x = hips.getPin().x;
+                leftThigh.y = hips.getPin().y;
+                leftCalf.x = leftThigh.getPin().x;
+                leftCalf.y = leftThigh.getPin().y;
+                leftFoot.x = leftCalf.getPin().x;
+                leftFoot.y = leftCalf.getPin().y;
+            }
+
+
             window.onload = function()
             {
-                var canvas = document.getElementById('canvas'),
-                    context = canvas.getContext('2d'),
-                    mouse = utils.captureMouse(canvas),
-                    neck = new Segment(30,20),
-                    shoulders = new Segment(30, 20),
-                    upperLeft = new Segment(100, 20, '#FF0000'),
-                    upperRight = new Segment(100, 20, '#00FF00'),
-                    leftFore = new Segment(100, 20, '#0000FF'),
-                    rightFore = new Segment(100, 20, '#000000'),
-                    hips = new Segment(20, 20, '#00000F'),
-                    leftThigh = new Segment(100, 20),
-                    rightThigh = new Segment(100, 20),
-                    leftCalf = new Segment(100, 20),
-                    rightCalf = new Segment(100, 20),
-                    upperBack = new Segment(80, 20),
-                    lowerBack = new Segment(60, 20),
-                    leftFoot = new Segment(25, 20),
-                    rightFoot = new Segment(25, 20),
-
-                    head = new Ball(30),
-                    leftGlove = new Ball(20),
-                    rightGlove = new Ball(),
+                    canvas = document.getElementById('canvas');
+                    context = canvas.getContext('2d');
+                    mouse = utils.captureMouse(canvas);
+                    neck = new Segment(30,20);
+                    shoulders = new Segment(30, 20);
+                    upperLeft = new Segment(100, 20, '#FF0000');
+                    upperRight = new Segment(100, 20, '#00FF00');
+                    leftFore = new Segment(100, 20, '#0000FF');
+                    rightFore = new Segment(100, 20, '#000000');
+                    hips = new Segment(20, 20, '#00000F');
+                    leftThigh = new Segment(100, 20);
+                    rightThigh = new Segment(100, 20);
+                    leftCalf = new Segment(100, 20);
+                    rightCalf = new Segment(100, 20);
+                    upperBack = new Segment(80, 20);
+                    lowerBack = new Segment(60, 20);
+                    leftFoot = new Segment(25, 20);
+                    rightFoot = new Segment(25, 20);
+                    head = new Ball(30);
+                    leftGlove = new Ball(20);
+                    rightGlove = new Ball();
                     cycle = 0;
 
                 upperBack.x = canvas.width / 2;
@@ -200,21 +205,22 @@
                 lowerBack.x = upperBack.getPin().x - 10;
                 lowerBack.y = upperBack.getPin().y;
 
+                init(0.05);
+
                 function drawFrame() {
                 	window.requestAnimationFrame(drawFrame, canvas);
                   context.clearRect(0, 0, canvas.width, canvas.height);
-                  cycle = 0.05;
+                //   cycle = 0.05;
+                //
+                // spine(upperBack, lowerBack, cycle);
+                // upperBody(shoulders, upperBack, neck, head, cycle);
+                // leftArm(upperLeft, leftFore, shoulders, cycle);
+                // rightArm(upperRight, rightFore, shoulders, cycle);
+                // getHips(hips, lowerBack, cycle);
+                // leftLeg(leftThigh, leftCalf, leftFoot, hips, cycle);
+                // rightLeg(rightThigh, rightCalf, rightFoot, hips, cycle);
 
-                spine(context, upperBack, lowerBack, cycle);
-                upperBody(context, shoulders, upperBack, neck, head, cycle);
-                leftArm(context, upperLeft, leftFore, shoulders, cycle);
-                rightArm(context, upperRight, rightFore, shoulders, cycle);
-                getHips(context, hips, lowerBack, cycle);
-                leftLeg(context, leftThigh, leftCalf, leftFoot, hips, cycle);
-                rightLeg(context, rightThigh, rightCalf, rightFoot, hips, cycle);
-
-                window.addEventListener('keydown', onKeyboardEvent, false);
-
+              window.addEventListener('keydown', onKeyboardEvent, false);
 
                 neck.draw(context);
                 head.draw(context);
