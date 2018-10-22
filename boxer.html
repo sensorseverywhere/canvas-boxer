@@ -83,6 +83,41 @@
               leftFoot.y = leftCalf.getPin().y;
             }
 
+            function onKeyboardEvent(e) {
+          //    console.log(e.keyCode);
+              switch(e.keyCode) {
+                case 73:
+                  console.log("I ( Up )");
+                  break;
+                case 75:
+                   console.log("K ( Down )");
+                   break;
+                case 59:
+                  console.log("semi colon ( Right kkkk;jikkk)");
+                  break;
+                case 74:
+                  console.log('J ( Left )')
+                  break;
+                case 32:
+                  console.log('space')
+                  break;
+                case 65:
+                  console.log('A');
+                  break;
+                case 70:
+                  console.log('F');
+                  break;
+                case 69:
+                  console.log('E');
+                  break;
+                case 68:
+                  console.log('D');
+                  break;
+                default:
+                  console.log('none');
+              }
+            }
+
 
             window.onload = function()
             {
@@ -126,9 +161,10 @@
                 leftArm(context, upperLeft, leftFore, shoulders, cycle);
                 rightArm(context, upperRight, rightFore, shoulders, cycle);
                 getHips(context, hips, lowerBack, cycle);
-
                 leftLeg(context, leftThigh, leftCalf, leftFoot, hips, cycle);
                 rightLeg(context, rightThigh, rightCalf, rightFoot, hips, cycle);
+
+                window.addEventListener('keydown', onKeyboardEvent, false);
 
 
                 neck.draw(context);
