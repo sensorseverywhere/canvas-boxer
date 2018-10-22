@@ -83,35 +83,84 @@
               leftFoot.y = leftCalf.getPin().y;
             }
 
+            function duck() {
+              console.log('duck');
+            }
+
+            function moveBack() {
+              console.log('moving back');
+            }
+
+            function moveForward() {
+              console.log('moving forward');
+            }
+
+            function leftJab() {
+              console.log('left jab');
+            }
+
+            function rightJab() {
+              console.log('right jab');
+            }
+
+            function leftUpperCut() {
+              console.log('leftUpperCut');
+            }
+
+            function rightUpperCut() {
+              console.log('rightUpperCut');
+            }
+
+            function leftHook() {
+              console.log('left hook');
+            }
+
+            function rightHook() {
+              console.log('right hook');
+            }
+
             function onKeyboardEvent(e) {
-          //    console.log(e.keyCode);
+              console.log(e.keyCode);
               switch(e.keyCode) {
                 case 73:
                   console.log("I ( Up )");
                   break;
                 case 75:
                    console.log("K ( Down )");
+                   duck();
                    break;
                 case 59:
-                  console.log("semi colon ( Right kkkk;jikkk)");
+                  console.log("semi colon ( Right s)");
+                  moveBack();
                   break;
                 case 74:
                   console.log('J ( Left )')
+                  moveForward();
                   break;
                 case 32:
                   console.log('space')
                   break;
                 case 65:
                   console.log('A');
+                  leftJab();
                   break;
                 case 70:
                   console.log('F');
+                  rightJab();
                   break;
                 case 69:
                   console.log('E');
+                  leftUpperCut();
                   break;
                 case 68:
                   console.log('D');
+                  rightUpperCut();
+                  break;
+                case 83:
+                  leftHook();
+                  break;
+                case 90:
+                  rightHook();
                   break;
                 default:
                   console.log('none');
