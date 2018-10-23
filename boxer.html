@@ -56,6 +56,22 @@
               },100);
             }
 
+            function rightJab() {
+              console.log('righty right rught')
+              upperRight.rotation = getCycle(-.95);
+              upperRight.x = shoulders.getPin().x - shoulders.width;
+              upperRight.y = shoulders.getPin().y;
+              rightFore.x = upperRight.getPin().x;
+              rightFore.y = upperRight.getPin().y;
+              setTimeout(function() {
+                upperRight.rotation = getCycle(.05);
+                upperRight.x = shoulders.getPin().x - shoulders.width;
+                upperRight.y = shoulders.getPin().y;
+                rightFore.x = upperRight.getPin().x;
+                rightFore.y = upperRight.getPin().y;
+              },100);
+            }
+
             function duck() {
               console.log('duck');
             }
@@ -66,10 +82,6 @@
 
             function moveForward() {
               console.log('moving forward');
-            }
-
-            function rightJab() {
-              console.log('right jab');
             }
 
             function leftUpperCut() {
@@ -89,6 +101,7 @@
             }
 
             function onKeyboardEvent(e) {
+              console.log(e.keyCode);
                 switch(e.keyCode) {
                 case 73:
                   console.log('up - nothing assigned')
@@ -108,6 +121,7 @@
                   leftJab();
                   break;
                 case 70:
+                  // F
                   rightJab();
                   break;
                 case 69:
