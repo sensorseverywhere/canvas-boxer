@@ -41,6 +41,10 @@
                 return angle = (Math.sin(cycle) * 90 + 90) * Math.PI / 180;
             }
 
+            function getHookCycle(cycle) {
+              return angle = (Math.sin(1) * 90 + 180) * Math.PI / 180;
+            }
+
             function leftJab() {
               upperLeft.rotation = getCycle(-.95);
               upperLeft.x = shoulders.getPin().x;
@@ -57,7 +61,6 @@
             }
 
             function rightJab() {
-              console.log('righty right rught')
               upperRight.rotation = getCycle(-.95);
               upperRight.x = shoulders.getPin().x - shoulders.width;
               upperRight.y = shoulders.getPin().y;
@@ -85,11 +88,37 @@
             }
 
             function leftUpperCut() {
-              console.log('leftUpperCut');
+              upperLeft.rotation = getCycle(-1);
+              leftFore.rotation =  getHookCycle(1);
+              upperLeft.x = shoulders.getPin().x;
+              upperLeft.y = shoulders.getPin().y;
+              leftFore.x = upperLeft.getPin().x;
+              leftFore.y = upperLeft.getPin().y;
+              setTimeout(function() {
+                upperLeft.rotation = getCycle(.05);
+                leftFore.rotation = 50;
+                upperLeft.x = shoulders.getPin().x;
+                upperLeft.y = shoulders.getPin().y;
+                leftFore.x = upperLeft.getPin().x;
+                leftFore.y = upperLeft.getPin().y;
+              },100);
             }
 
             function rightUpperCut() {
-              console.log('rightUpperCut');
+              upperRight.rotation = getCycle(-1);
+              rightFore.rotation =  getHookCycle(1);
+              upperRight.x = shoulders.getPin().x - shoulders.width;
+              upperRight.y = shoulders.getPin().y;
+              rightFore.x = upperRight.getPin().x;
+              rightFore.y = upperRight.getPin().y;
+              setTimeout(function() {
+                upperRight.rotation = getCycle(.05);
+                rightFore.rotation = 50;
+                upperRight.x = shoulders.getPin().x - shoulders.width;
+                upperRight.y = shoulders.getPin().y;
+                rightFore.x = upperRight.getPin().x;
+                rightFore.y = upperRight.getPin().y;
+              },100);
             }
 
             function leftHook() {
@@ -125,6 +154,7 @@
                   rightJab();
                   break;
                 case 69:
+                  // E
                   leftUpperCut();
                   break;
                 case 68:
@@ -185,6 +215,7 @@
                 leftCalf.y = leftThigh.getPin().y;
                 leftFoot.x = leftCalf.getPin().x;
                 leftFoot.y = leftCalf.getPin().y;
+                console.log(rightFore.rotation);
             }
 
 
@@ -221,19 +252,12 @@
 
                 init(0.05);
 
+
                 function drawFrame() {
                 	window.requestAnimationFrame(drawFrame, canvas);
                   context.clearRect(0, 0, canvas.width, canvas.height);
-                //   cycle = 0.05;
-                //
-                // spine(upperBack, lowerBack, cycle);
-                // upperBody(shoulders, upperBack, neck, head, cycle);
-                // leftArm(upperLeft, leftFore, shoulders, cycle);
-                // rightArm(upperRight, rightFore, shoulders, cycle);
-                // getHips(hips, lowerBack, cycle);
-                // leftLeg(leftThigh, leftCalf, leftFoot, hips, cycle);
-                // rightLeg(rightThigh, rightCalf, rightFoot, hips, cycle);
-
+              //    cycle += .01;
+              //  leftUpperCut(cycle);
               window.addEventListener('keydown', onKeyboardEvent, false);
 
                 neck.draw(context);
