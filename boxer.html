@@ -13,6 +13,7 @@
         <script src="js/utils.js"></script>
         <script src="js/ball.js"></script>
         <script src="js/segment.js"></script>
+        <script src="js/boxer.js"></script>
         <script>
             var canvas,
                 context,
@@ -84,7 +85,13 @@
             }
 
             function moveForward() {
-              console.log('moving forward');
+              leftFoot.x = leftFoot.x + 10;
+              rightFoot.x = rightFoot.x + 10;
+              leftCalf.x = leftThigh.getPin().x;
+              leftCalf.y = leftThigh.getPin().y;
+              leftFoot.x = leftCalf.getPin().x;
+              leftFoot.y = leftCalf.getPin().y;
+
             }
 
             function leftUpperCut() {
@@ -215,8 +222,10 @@
                 leftCalf.y = leftThigh.getPin().y;
                 leftFoot.x = leftCalf.getPin().x;
                 leftFoot.y = leftCalf.getPin().y;
-                console.log(rightFore.rotation);
+              //  console.log(rightFore.rotation);
             }
+
+
 
 
             window.onload = function()
@@ -224,58 +233,20 @@
                     canvas = document.getElementById('canvas');
                     context = canvas.getContext('2d');
                     mouse = utils.captureMouse(canvas);
-                    neck = new Segment(30,20);
-                    shoulders = new Segment(30, 20);
-                    upperLeft = new Segment(100, 20, '#FF0000');
-                    upperRight = new Segment(100, 20, '#00FF00');
-                    leftFore = new Segment(100, 20, '#0000FF');
-                    rightFore = new Segment(100, 20, '#000000');
-                    hips = new Segment(20, 20, '#00000F');
-                    leftThigh = new Segment(100, 20);
-                    rightThigh = new Segment(100, 20);
-                    leftCalf = new Segment(100, 20);
-                    rightCalf = new Segment(100, 20);
-                    upperBack = new Segment(80, 20);
-                    lowerBack = new Segment(60, 20);
-                    leftFoot = new Segment(25, 20);
-                    rightFoot = new Segment(25, 20);
-                    head = new Ball(30);
-                    leftGlove = new Ball(20);
-                    rightGlove = new Ball();
+                    var boxer1 = new Boxer();
+                    var boxer2 = new Boxer();
+
                     cycle = 0;
-
-                upperBack.x = canvas.width / 2;
-                upperBack.y = canvas.height / 4;
-
-                lowerBack.x = upperBack.getPin().x - 10;
-                lowerBack.y = upperBack.getPin().y;
-
-                init(0.05);
-
 
                 function drawFrame() {
                 	window.requestAnimationFrame(drawFrame, canvas);
                   context.clearRect(0, 0, canvas.width, canvas.height);
-              //    cycle += .01;
+              //  cycle += .01;
               //  leftUpperCut(cycle);
-              window.addEventListener('keydown', onKeyboardEvent, false);
+                  window.addEventListener('keydown', onKeyboardEvent, false);
 
-                neck.draw(context);
-                head.draw(context);
-                upperBack.draw(context);
-                lowerBack.draw(context);
-                upperLeft.draw(context);
-                leftFore.draw(context);
-                shoulders.draw(context, true);
-                upperRight.draw(context);
-                rightFore.draw(context);
-                leftThigh.draw(context);
-                leftCalf.draw(context);
-                hips.draw(context);
-                rightThigh.draw(context);
-                rightCalf.draw(context);
-                leftFoot.draw(context);
-                rightFoot.draw(context);
+                  boxer1.draw(context, 'left');
+                  boxer2.draw(context, 'right');
 
                 }
                 drawFrame();
