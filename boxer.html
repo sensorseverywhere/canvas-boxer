@@ -195,13 +195,13 @@
                     context = canvas.getContext('2d');
                     mouse = utils.captureMouse(canvas);
                     cycle = 0;
-                    var boxer1 = new Boxer(cycle);
+                    var boxer = new Boxer(cycle);
 
                 function drawFrame() {
                 	window.requestAnimationFrame(drawFrame, canvas);
                   context.clearRect(0, 0, canvas.width, canvas.height);
                   window.addEventListener('keydown', onKeyboardEvent, false);
-                  boxer1.draw(context, 'left');
+                  boxer.draw(context);
 
                 }
                 drawFrame();

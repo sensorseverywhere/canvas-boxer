@@ -72,22 +72,22 @@ function Boxer(cycle) {
     init(0.05);
 }
 
-Boxer.prototype.draw = function(context, pos) {
-  if(pos === 'left'){
+Boxer.prototype.draw = function(context) {
+  // if(pos === 'left'){
     upperBack.x = 100;
     upperBack.y = canvas.height / 4 - 20;
 
     lowerBack.x = upperBack.getPin().x;
     lowerBack.y = upperBack.getPin().y;
 
-  } else {
-    upperBack.x = 500;
-    upperBack.y = canvas.height / 4;
+  // } else {
+  //   upperBack.x = 500;
+  //   upperBack.y = canvas.height / 4;
 
-    lowerBack.x = upperBack.getPin().x;
-    lowerBack.y = upperBack.getPin().y;
+  //   lowerBack.x = upperBack.getPin().x;
+  //   lowerBack.y = upperBack.getPin().y;
 
-  }
+  // }
 
   neck.draw(context);
   head.draw(context);
