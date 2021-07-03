@@ -50,7 +50,6 @@ function init(cycleValue) {
 }
 
 function Boxer(cycle) {
-  console.log('boxer')
   neck = new Segment(30,20);
   shoulders = new Segment(30, 20);
   upperLeft = new Segment(100, 20, '#FF0000');
@@ -75,8 +74,8 @@ function Boxer(cycle) {
 
 Boxer.prototype.draw = function(context, pos) {
   if(pos === 'left'){
-    upperBack.x = 200;
-    upperBack.y = canvas.height / 4;
+    upperBack.x = 100;
+    upperBack.y = canvas.height / 4 - 20;
 
     lowerBack.x = upperBack.getPin().x;
     lowerBack.y = upperBack.getPin().y;

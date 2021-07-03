@@ -47,6 +47,7 @@
             }
 
             function leftJab() {
+              console.log('left jab function')
               upperLeft.rotation = getCycle(-.95);
               upperLeft.x = shoulders.getPin().x;
               upperLeft.y = shoulders.getPin().y;
@@ -143,31 +144,41 @@
                   console.log('up - nothing assigned')
                   break;
                 case 75:
+                  console.log('duck')
                    duck();
                    break;
                 case 59:
+                  console.log('forward')
                   moveForward();
                   break;
                 case 74:
+                  console.log('back')
                   moveBack();
                   break;
                 case 32:
                   break;
-                case 65:
+                case 82:
+                  console.log('left jab: ' + e.keyCode)
                   leftJab();
                   break;
                 case 70:
                   // F
+                  console.log('right jab')
                   rightJab();
                   break;
                 case 69:
                   // E
+                  console.log('left uppercut: ' + e.keyCode)
                   leftUpperCut();
                   break;
                 case 68:
+                  // D
+                  console.log('right uppercut: ' + e.keyCode)
                   rightUpperCut();
                   break;
                 case 83:
+                  // S
+                  console.log('left hook: ' + e.keyCode)
                   leftHook();
                   break;
                 case 90:
@@ -178,56 +189,6 @@
               }
             }
 
-
-            // function init(cycleValue) {
-            //     var angle = getCycle(cycleValue);
-            //     upperBack.rotation = angle * 1.05;
-            //     lowerBack.rotation = upperBack.rotation + (getCycle(cycleValue) * 3.8);
-            //     lowerBack.x = upperBack.getPin().x;
-            //     lowerBack.y = upperBack.getPin().y;
-            //     shoulders.rotation = getCycle(cycleValue) * -.1;
-            //     neck.rotation = getCycle(cycleValue) * -.75;
-            //     shoulders.x = upperBack.x - (shoulders.width / 2);
-            //     shoulders.y = neck.y = upperBack.y;
-            //     neck.x = shoulders.x + (shoulders.width / 2);
-            //     // neck.y = shoulders.y;
-            //     head.x = neck.x + head.radius / 1.4;
-            //     head.y = neck.y / 1.7;
-            //     upperLeft.rotation = getCycle(cycleValue) * .75;
-            //     upperLeft.x = shoulders.getPin().x;
-            //     upperLeft.y = shoulders.getPin().y;
-            //     leftFore.x = upperLeft.getPin().x;
-            //     leftFore.y = upperLeft.getPin().y;
-            //     upperRight.rotation = getCycle(cycleValue) * 1.05;
-            //     upperRight.x = shoulders.getPin().x - shoulders.width;
-            //     upperRight.y = shoulders.getPin().y;
-            //     rightFore.x = upperRight.getPin().x;
-            //     rightFore.y = upperRight.getPin().y;
-            //     hips.rotation = getCycle(cycleValue) * -.1;
-            //     hips.x = lowerBack.getPin().x - (hips.width / 2);
-            //     hips.y = lowerBack.getPin().y + (hips.height / 2);
-            //     rightThigh.rotation = getCycle(cycleValue) * .95;
-            //     rightCalf.rotation = getCycle(cycleValue) * 1.35;
-            //     rightThigh.x = hips.getPin().x - hips.width;
-            //     rightThigh.y = hips.getPin().y;
-            //     rightCalf.x = rightThigh.getPin().x;
-            //     rightCalf.y = rightThigh.getPin().y;
-            //     rightFoot.x = rightCalf.getPin().x;
-            //     rightFoot.y = rightCalf.getPin().y;
-            //     leftThigh.rotation = getCycle(cycleValue) * .55;
-            //     leftCalf.rotation = getCycle(cycleValue) * 1.10;
-            //     leftThigh.x = hips.getPin().x;
-            //     leftThigh.y = hips.getPin().y;
-            //     leftCalf.x = leftThigh.getPin().x;
-            //     leftCalf.y = leftThigh.getPin().y;
-            //     leftFoot.x = leftCalf.getPin().x;
-            //     leftFoot.y = leftCalf.getPin().y;
-            //   //  console.log(rightFore.rotation);
-            // }
-
-
-
-
             window.onload = function()
             {
                     canvas = document.getElementById('canvas');
@@ -235,19 +196,12 @@
                     mouse = utils.captureMouse(canvas);
                     cycle = 0;
                     var boxer1 = new Boxer(cycle);
-                    var boxer2 = new Boxer(cycle);
-
-
 
                 function drawFrame() {
                 	window.requestAnimationFrame(drawFrame, canvas);
                   context.clearRect(0, 0, canvas.width, canvas.height);
-              //  cycle += .01;
-              //  leftUpperCut(cycle);
                   window.addEventListener('keydown', onKeyboardEvent, false);
-
                   boxer1.draw(context, 'left');
-                  boxer2.draw(context, 'right');
 
                 }
                 drawFrame();
